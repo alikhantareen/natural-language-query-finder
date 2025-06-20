@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { llmService } from '@/lib/llm';
+import { MemoryDB } from '@/lib/memory-db';
 
 export async function POST(request: NextRequest) {
   try {
@@ -30,7 +31,12 @@ export async function POST(request: NextRequest) {
     // Execute the SQL query
     let results: Record<string, unknown>[];
     try {
-      results = await prisma.$queryRawUnsafe(sqlQuery);
+      // Use memory database on Vercel, Prisma locally
+      if (process.env.VERCEL) {
+        results = await MemoryDB.executeQuery(sqlQuery) as Record<string, unknown>[];
+      } else {
+        results = await prisma.$queryRawUnsafe(sqlQuery);
+      }
     } catch (error) {
       console.error('SQL execution error:', error);
       return NextResponse.json(
