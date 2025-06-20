@@ -9,7 +9,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -29,7 +29,7 @@ model User {
 model Product {
   id          Int         @id @default(autoincrement())
   name        String
-  price       Decimal     @db.Decimal(10, 2)
+  price       Float
   category    String
   description String?
   inStock     Boolean     @default(true)
@@ -44,7 +44,7 @@ model Order {
   id         Int         @id @default(autoincrement())
   userId     Int
   status     String      @default("pending")
-  total      Decimal     @db.Decimal(10, 2)
+  total      Float
   orderDate  DateTime    @default(now())
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
@@ -59,7 +59,7 @@ model OrderItem {
   orderId   Int
   productId Int
   quantity  Int
-  price     Decimal @db.Decimal(10, 2)
+  price     Float
   order     Order   @relation(fields: [orderId], references: [id])
   product   Product @relation(fields: [productId], references: [id])
 
