@@ -64,6 +64,7 @@ const orders: Order[] = [
   { id: 5, userId: 4, status: 'pending', total: 1299.98, orderDate: new Date('2024-03-05'), createdAt: new Date('2024-03-05'), updatedAt: new Date('2024-03-05') },
 ];
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const orderItems: OrderItem[] = [
   { id: 1, orderId: 1, productId: 1, quantity: 1, price: 999.99 },
   { id: 2, orderId: 1, productId: 2, quantity: 1, price: 29.99 },
