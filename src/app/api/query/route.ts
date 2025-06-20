@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Execute the SQL query
-    let results: any[];
+    let results: Record<string, unknown>[];
     try {
       results = await prisma.$queryRawUnsafe(sqlQuery);
     } catch (error) {

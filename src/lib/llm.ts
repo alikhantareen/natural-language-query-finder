@@ -99,7 +99,7 @@ export class LLMService {
     originalQuery: string;
     sqlQuery: string;
     resultCount: number;
-    sampleData: any[];
+    sampleData: unknown[];
     columns: string[];
   }): Promise<string> {
     try {

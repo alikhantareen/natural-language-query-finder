@@ -7,7 +7,7 @@ interface QueryResult {
   success: boolean;
   naturalLanguageQuery: string;
   generatedSQL: string;
-  results: any[];
+  results: Record<string, unknown>[];
   count: number;
   explanation?: string;
   error?: string;
@@ -37,7 +37,7 @@ export default function QueryInterface() {
 
       const data = await response.json();
       setResult(data);
-    } catch (error) {
+    } catch {
       setResult({
         success: false,
         naturalLanguageQuery: query,
@@ -52,7 +52,7 @@ export default function QueryInterface() {
     }
   };
 
-  const renderTable = (data: any[]) => {
+  const renderTable = (data: Record<string, unknown>[]) => {
     if (!data || data.length === 0) {
       return (
         <div className="text-center py-8 text-gray-500">
